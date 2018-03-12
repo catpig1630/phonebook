@@ -28,5 +28,7 @@ typedef struct __LASTNAME_ENTRY {
 
 entry *findName(char lastName[], entry *pHead);
 entry *append(char lastName[], entry *e);
-
+unsigned int bkdr_hash(char lastName[]);
+entry *hashhead[1024];
+entry *hashtail[1024];
 #endif

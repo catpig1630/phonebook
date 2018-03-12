@@ -49,6 +49,15 @@ int main(int argc, char *argv[])
     e = pHead;
     e->pNext = NULL;
 
+#ifdef OPT
+    /* initial the hashtable */
+    for(i=0; i<1024; i++) {
+        hashhead[i] = (entry *) malloc(sizeof(entry));
+        hashhead[i]->pNext = NULL;
+        hashtail[i] = hashhead[i];
+    }
+#endif
+
 #if defined(__GNUC__)
     __builtin___clear_cache((char *) pHead, (char *) pHead + sizeof(entry));
 #endif
@@ -88,11 +97,11 @@ int main(int argc, char *argv[])
     FILE *output = fopen(OUT_FILE, "a");
     fprintf(output, "append() findName() %lf %lf\n", cpu_time1, cpu_time2);
     fclose(output);
-
     printf("execution time of append() : %lf sec\n", cpu_time1);
     printf("execution time of findName() : %lf sec\n", cpu_time2);
 
     /* free linked list of entry */
+
     do {
         e = pHead;
         pHead = pHead->pNext;
